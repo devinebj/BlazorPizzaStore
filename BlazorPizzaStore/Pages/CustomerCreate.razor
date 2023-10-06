@@ -1,0 +1,55 @@
+﻿@page "/CustomerCreate"
+@using PizzaStoreModels
+@using Microsoft.AspNetCore.Components.Forms
+@inject HttpClient http
+
+<h3>Create Customer</h3>
+<hr />
+
+
+<div class="container">
+	<div class="row">
+		<EditForm Model="@Customer" OnSubmit="@HandleSubmit">
+			<div class="form-floating my-2">
+				<InputText id="FirstName" name="FirstName" placeholder="x" @bind-Value="Customer.FirstName" />
+				<label for="FirstName">First Name: </label>
+			</div>
+			<div class="form-floating my-2">
+				<InputText id="LastName" name="LastName" placeholder="x" @bind-Value="Customer.LastName" />
+				<label for="LastName">Last Name: </label>
+			</div>
+			<div class="form-floating my-2">
+				<InputText id="Address" name="Address" placeholder="x" @bind-Value="Customer.Address" />
+				<label for="Address">Address: </label>
+			</div>
+			<div class="form-floating my-2">
+				<InputText id="City" name="City" placeholder="x" @bind-Value="Customer.City" />
+				<label for="City">City: </label>
+			</div>
+			<div class="form-floating my-2">
+				<InputText id="State" name="State" placeholder="x" @bind-Value="Customer.State" />
+				<label for="State">State: </label>
+			</div>
+			<div class="form-floating my-2">
+				<InputText id="PostalCode" name="PostalCode" placeholder="x" @bind-Value="Customer.PostalCode" />
+				<label for="PostalCode">Postal Code: </label>
+			</div>
+			<div class="form-group m-2">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</EditForm>
+	</div>
+	<div class="row">
+		<div class="my-1">
+			<a href="Customers">Back to Customer List</a>
+		</div>
+	</div>
+</div>
+
+@code {
+	public CustomerViewModel Customer { get; set; } = new CustomerViewModel();
+
+	protected async void HandleSubmit() {
+		var result = await http.PostAsJsonAsync<CustomerViewModel>($"api/customers", Customer);
+	}
+}

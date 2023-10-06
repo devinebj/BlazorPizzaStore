@@ -1,0 +1,82 @@
+﻿@page "/Customers"
+@using PizzaStoreModels;
+@inject HttpClient http
+
+
+<h3>Customers</h3>
+
+<p>
+    <a href="CustomerCreate">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                FirstName
+            </th>
+            <th>
+                LastName
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                State
+            </th>
+            <th>
+                PostalCode
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in CustomerList) {
+            <tr>
+                <td>
+                    @customer.FirstName
+                </td>
+                <td>
+                    @customer.LastName
+                </td>
+                <td>
+                    @customer.Address
+                </td>
+                <td>
+                    @customer.City
+                </td>
+                <td>
+                    @customer.State
+                </td>
+                <td>
+                    @customer.PostalCode
+                </td>
+                <td>
+                    <a href="@($"CustomerEdit/{customer.CustomerId}")">Edit</a> |
+                    <a href="@($"CustomerDetails/{customer.CustomerId}")">Details</a> |
+                    <a @onclick="@( () => DeleteCustomer(customer.CustomerId))"
+                       @onclick:preventDefault="true">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    public List<CustomerViewModel>? CustomerList { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        try {
+            CustomerList = await http.GetFromJsonAsync<List<CustomerViewModel>>("api/Customers");
+        } catch (Exception ex) {
+
+        }
+        await base.OnInitializedAsync();
+    }
+
+    private async Task DeleteCustomer(int CustomerId) {
+        var result = await http.DeleteAsync($"api/customers/{CustomerId}"); 
+    }
+}
