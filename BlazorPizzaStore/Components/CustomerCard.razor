@@ -1,0 +1,23 @@
+﻿@using PizzaStoreModels.ViewModels
+
+<div class="card" style="background-color: @(BackgroundColor ?? "White"); color:@(TextColor ?? "Black") ">
+	<div class="card-body">
+		<h5 class="card-title">
+			@Customer.FullName
+		</h5>
+		<p class="card-text">
+			Address: @Customer.Address
+		</p>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public CustomerViewModel Customer { get; set; }
+
+	[Parameter]
+	public string BackgroundColor { get; set; }
+
+	[Parameter]
+	public string TextColor { get; set; }
+}

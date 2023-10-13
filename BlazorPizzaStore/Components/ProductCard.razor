@@ -1,0 +1,31 @@
+﻿@inject IJSRuntime js
+@using PizzaStoreModels.ViewModels;
+
+<div class="card" style="background-color: @(BackgroundColor ?? "White"); color:@(TextColor ?? "Black"); display:inline-block; width:@(Width ?? "200px");" @onclick="(() => AddProductToCart(Product.ProductId))">
+	<div class="card-body">
+		<h5 class="card-title">
+			@Product.Name;
+		</h5>
+		<p class="card-text">
+			Price: @Product.Price.ToString();
+		</p>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public ProductViewModel Product { get; set; }
+
+	[Parameter]
+	public string BackgroundColor { get; set; }
+
+	[Parameter]
+	public string TextColor { get; set; }
+
+	[Parameter]
+	public string Width { get; set; }
+
+	protected async Task AddProductToCart(int ProductId) {
+		await js.InvokeVoidAsync("alert", $"The product id of the product clicked was {ProductId}");
+	}
+}

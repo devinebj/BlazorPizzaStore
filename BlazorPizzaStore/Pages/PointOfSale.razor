@@ -1,9 +1,33 @@
 ﻿@page "/PointOfSale/{CustomerId:int?}"
-<h3>PointOfSale</h3>
+@inject HttpClient http
+@using PizzaStoreModels.ViewModels
+
+@if (Customer is null || Products is null) {
+	<p>Retrieving info...</p>
+} else {
+	<CustomerCard Customer="Customer" BackgroundColor="MidnightBlue" TextColor="White" />
+
+	<div class="container-fluid">
+		
+	</div>
+}
+
 
 Hello, @CustomerId!
 
 @code {
 	[Parameter]
 	public int? CustomerId { get; set; }
+
+	[Parameter]
+	public CustomerViewModel? Customer { get; set; }
+
+	public List<ProductViewModel>? Products { get; set; } = new List<ProductViewModel>();
+
+	protected override async Task OnInitializedAsync() {
+		Customer = await http.GetFromJsonAsync<CustomerViewModel>($"api/customers/{CustomerId}");
+		Products = await http.GetFromJsonAsync<List<ProductViewModel>>("$api/products");
+		await base.OnInitializedAsync();
+	}
+
 }

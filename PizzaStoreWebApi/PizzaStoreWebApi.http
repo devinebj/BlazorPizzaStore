@@ -1,3 +1,18 @@
-﻿@PizzaStoreWebApi_HostAddress = https://localhost:7225
+﻿@PizzaStoreWebApi_HostAddress = https://localhost:7235
 
+GET {{PizzaStoreWebApi_HostAddress}}/api/products
 
+###
+
+GET {{PizzaStoreWebApi_HostAddress}}/api/customers
+
+###
+
+PUT {{PizzaStoreWebApi_HostAddress}}/api/customers/0
+Content-Type: application/json
+
+{
+  //Customer
+}
+
+###

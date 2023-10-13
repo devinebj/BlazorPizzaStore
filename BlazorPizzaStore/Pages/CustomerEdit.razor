@@ -1,10 +1,9 @@
 ﻿@page "/CustomerEdit/{CustomerId:int?}"
-@using PizzaStoreModels
+@using PizzaStoreModels.ViewModels
 @using Microsoft.AspNetCore.Components.Forms
 @inject HttpClient http
 
 <h3>Edit Customer</h3>
-<hr/>
 
 @if(Customer is null) {
 	<p>Retrieving customer...</p>
@@ -53,7 +52,7 @@
 	[Parameter]
 	public int? CustomerId { get; set; }
 
-	public CustomerViewModel Customer { get; set; }
+	public CustomerViewModel? Customer { get; set; }
 
 	protected override async Task OnInitializedAsync() {
 		Customer = await http.GetFromJsonAsync<CustomerViewModel>($"api/customers/{CustomerId}");

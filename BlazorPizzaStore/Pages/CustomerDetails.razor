@@ -1,67 +1,67 @@
-﻿@page "/CustomerDetails/{CustomerId}"
-@using PizzaStoreModels
+﻿@page "/CustomerDetails/{CustomerId:int?}"
+@using PizzaStoreModels.ViewModels
 @inject HttpClient http
 
-@if(Customer is null) {
-    <p>Retrieving customer...</p>
+@if (Customer is null) {
+	<p>Retrieving customer...</p>
 } else {
-<div class="ms-2">
-<div>
-    <h4>Customer Details</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            FirstName
-        </dt>
-        <dd class="col-sm-10">
-            @Customer.FirstName
-        </dd>
-        <dt class="col-sm-2">
-           LastName
-        </dt>
-        <dd class="col-sm-10">
-            @Customer.LastName
-        </dd>
-        <dt class="col-sm-2">
-            Address
-        </dt>
-        <dd class="col-sm-10">
-            @Customer.Address
-        </dd>
-        <dt class="col-sm-2">
-            City
-        </dt>
-        <dd class="col-sm-10">
-            @Customer.City
-        </dd>
-        <dt class="col-sm-2">
-            State
-        </dt>
-        <dd class="col-sm-10">
-            @Customer.State
-        </dd>
-        <dt class="col-sm-2">
-            PostalCode
-        </dt>
-        <dd class="col-sm-10">
-            @Customer.PostalCode
-        </dd>
-    </dl>
-</div>
-<div>
-    <a href="CustomerEdit/@Customer.CustomerId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
-</div>
+	<div class="ms-2">
+		<div>
+			<h4>Customer Details</h4>
+			<hr />
+			<dl class="row">
+				<dt class="col-sm-2">
+					FirstName
+				</dt>
+				<dd class="col-sm-10">
+					@Customer.FirstName
+				</dd>
+				<dt class="col-sm-2">
+					LastName
+				</dt>
+				<dd class="col-sm-10">
+					@Customer.LastName
+				</dd>
+				<dt class="col-sm-2">
+					Address
+				</dt>
+				<dd class="col-sm-10">
+					@Customer.Address
+				</dd>
+				<dt class="col-sm-2">
+					City
+				</dt>
+				<dd class="col-sm-10">
+					@Customer.City
+				</dd>
+				<dt class="col-sm-2">
+					State
+				</dt>
+				<dd class="col-sm-10">
+					@Customer.State
+				</dd>
+				<dt class="col-sm-2">
+					PostalCode
+				</dt>
+				<dd class="col-sm-10">
+					@Customer.PostalCode
+				</dd>
+			</dl>
+		</div>
+		<div>
+			<a href="CustomerEdit/@Customer.CustomerId">Edit</a> |
+			<a asp-action="Index">Back to List</a>
+		</div>
+	</div>
 }
 
 @code {
-    [Parameter]
-    public int? CustomerId { get; set; }
-    public CustomerViewModel Customer { get; set; }
+	[Parameter]
+	public int? CustomerId { get; set; }
+	public CustomerViewModel? Customer { get; set; }
 
-    protected override async Task OnInitializedAsync() {
-        Customer = await http.GetFromJsonAsync<CustomerViewModel>($"/api/customers/{CustomerId}");
-        await base.OnInitializedAsync();
-    }
+	protected override async Task OnInitializedAsync() {
+		Customer = await http.GetFromJsonAsync<CustomerViewModel>($"/api/customers/{CustomerId}");
+		await base.OnInitializedAsync();
+	}
 }

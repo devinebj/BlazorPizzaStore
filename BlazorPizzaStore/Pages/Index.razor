@@ -2,6 +2,7 @@
 @page "/Index"
 @inject HttpClient http
 @using PizzaStoreModels;
+@using PizzaStoreModels.ViewModels;
 
 <h1>Choose Customer</h1>
 <form>
@@ -26,7 +27,7 @@
 @code {
 	public string? CustomerId { get; set; }
 	public bool AllowNavigate { get; set; } = true;
-	public List<CustomerViewModel>? Customers { get; set; } 
+	public List<CustomerViewModel>? Customers { get; set; } = new List<CustomerViewModel>();
 
 	private void SetAllowNavigate() {
 		AllowNavigate = string.IsNullOrWhiteSpace(CustomerId);
@@ -34,8 +35,11 @@
 
 	protected override async Task OnInitializedAsync() {
 
-		Customers = await http.GetFromJsonAsync<List<CustomerViewModel>>("api/Customers");
-		
+		try	{
+			Customers = await http.GetFromJsonAsync<List<CustomerViewModel>>("api/Customers");
+		} catch (Exception ex) {
+			
+		}
 		await base.OnInitializedAsync();
 	}
 }

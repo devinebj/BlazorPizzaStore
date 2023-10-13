@@ -1,5 +1,6 @@
 ﻿@page "/Customers"
 @using PizzaStoreModels;
+@using PizzaStoreModels.ViewModels;
 @inject HttpClient http
 
 
@@ -65,7 +66,7 @@
 </table>
 
 @code {
-    public List<CustomerViewModel>? CustomerList { get; set; }
+    public List<CustomerViewModel>? CustomerList { get; set; } = new List<CustomerViewModel>();
 
     protected override async Task OnInitializedAsync() {
         try {

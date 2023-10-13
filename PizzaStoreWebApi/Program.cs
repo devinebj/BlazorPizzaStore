@@ -31,7 +31,6 @@ namespace PizzaStoreWebApi {
 
 			app.UseAuthorization();
 
-
 			app.MapControllers();
 
 			app.Run();
