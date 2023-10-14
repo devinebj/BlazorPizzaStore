@@ -4,10 +4,10 @@
 <div class="card" style="background-color: @(BackgroundColor ?? "White"); color:@(TextColor ?? "Black"); display:inline-block; width:@(Width ?? "200px");" @onclick="(() => AddProductToCart(Product.ProductId))">
 	<div class="card-body">
 		<h5 class="card-title">
-			@Product.Name;
+			@Product.Name
 		</h5>
 		<p class="card-text">
-			Price: @Product.Price.ToString();
+			Price: @Product.Price.ToString()
 		</p>
 	</div>
 </div>

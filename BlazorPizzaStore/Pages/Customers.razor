@@ -1,6 +1,5 @@
 ﻿@page "/Customers"
-@using PizzaStoreModels;
-@using PizzaStoreModels.ViewModels;
+@using PizzaStoreModels.ViewModels
 @inject HttpClient http
 
 
@@ -58,7 +57,7 @@
                     <a href="@($"CustomerEdit/{customer.CustomerId}")">Edit</a> |
                     <a href="@($"CustomerDetails/{customer.CustomerId}")">Details</a> |
                     <a @onclick="@( () => DeleteCustomer(customer.CustomerId))"
-                       @onclick:preventDefault="true">Delete</a>
+                       @onclick:preventDefault="true" href="">Delete</a>
                 </td>
             </tr>
         }

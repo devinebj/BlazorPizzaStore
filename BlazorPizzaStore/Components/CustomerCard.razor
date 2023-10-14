@@ -1,12 +1,12 @@
 ﻿@using PizzaStoreModels.ViewModels
 
-<div class="card" style="background-color: @(BackgroundColor ?? "White"); color:@(TextColor ?? "Black") ">
+<div class="card" style="background-color:@(BackgroundColor ?? "White"); color:@(TextColor ?? "Black")">
 	<div class="card-body">
 		<h5 class="card-title">
-			@Customer.FullName
+			@Customer.FirstName @Customer.LastName
 		</h5>
 		<p class="card-text">
-			Address: @Customer.Address
+			@Customer.Address
 		</p>
 	</div>
 </div>

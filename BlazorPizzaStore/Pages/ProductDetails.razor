@@ -1,0 +1,48 @@
+﻿@page "/ProductDetails/{ProductId:int?}"
+@using PizzaStoreModels.ViewModels
+@inject HttpClient http
+
+@if(Product is null) {
+	<p>Retrieving product...</p>
+} else {
+	<div class="ms-2">
+		<div>
+			<h4>Product Details</h4>
+			<hr />
+			<dl class="row">
+				<dt class="col-sm-2">
+					Id
+				</dt>
+				<dd class="col-sm-10">
+					@Product.ProductId
+				</dd>
+				<dt class="col-sm-2">
+					Name
+				</dt>
+				<dd class="col-sm-10">
+					@Product.Name
+				</dd>
+				<dt class="col-sm-2">
+					Price
+				</dt>
+				<dd class="col-sm-10">
+					@Product.Price
+				</dd>
+			</dl>
+		</div>
+		<div>
+			<a href="Products">Back to List</a>
+		</div>
+	</div>
+}
+
+@code {
+	[Parameter]
+	public int? ProductId { get; set; }
+	public ProductViewModel? Product { get; set; }
+
+	protected override async Task OnInitializedAsync() {
+		Product = await http.GetFromJsonAsync<ProductViewModel>($"/api/products/{ProductId}");
+		await base.OnInitializedAsync();
+	}
+}

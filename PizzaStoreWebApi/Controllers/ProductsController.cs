@@ -27,10 +27,11 @@ namespace PizzaStoreWebApi.Controllers {
 			}
 
 			List<ProductViewModel> productViewModels = new List<ProductViewModel>();
-			var products = await _context.Products.OrderBy(p => p.ProductName).ThenBy(p => p.ProductPrice).ToListAsync();
+			var products = await _context.Products.OrderBy(p => p.ProductId).ToListAsync();
 
 			foreach (var product in products) {
 				var productViewModel = new ProductViewModel {
+					ProductId = product.ProductId,
 					Name = product.ProductName,
 					Price = product.ProductPrice
 				};

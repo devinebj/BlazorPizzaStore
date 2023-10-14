@@ -32,6 +32,7 @@ namespace PizzaStoreWebApi.Controllers {
 
 			foreach (var customer in customers) {
 				var customerViewModel = new CustomerViewModel {
+					CustomerId = customer.CustomerId,
 					FirstName = customer.FirstName,
 					LastName = customer.LastName,
 					Address = customer.Address,

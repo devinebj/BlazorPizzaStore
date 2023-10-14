@@ -1,5 +1,43 @@
-﻿<h3>Products</h3>
+﻿@page "/Products"
+@using PizzaStoreModels.ViewModels
+@inject HttpClient http
+
+<h3>Products</h3>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Price</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var product in ProductList) {
+			<tr>
+				<td>
+					@product.ProductId
+				</td>
+				<td>
+					@product.Name
+				</td>
+				<td>
+					@product.Price
+				</td>
+				<td>
+					<a href="@($"ProductDetails/{product.ProductId}")">Details</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
 
 @code {
+	public List<ProductViewModel>? ProductList { get; set; } = new List<ProductViewModel>();
 
+	protected override async Task OnInitializedAsync() {
+		ProductList = await http.GetFromJsonAsync<List<ProductViewModel>>("api/Products");
+		await base.OnInitializedAsync();
+	}
 }
